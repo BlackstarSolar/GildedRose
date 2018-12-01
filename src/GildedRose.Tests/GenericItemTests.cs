@@ -1,30 +1,19 @@
-using System.Collections.Generic;
 using FluentAssertions;
 using GildedRose.Console;
 using Xunit;
 
 namespace GildedRose.Tests
 {
-    public class GenericItemTests
+    public class GenericItemTests : ProgramTests
     {
-        private readonly IList<Item> _items;
-
-        private readonly Program _target;
-
-        public GenericItemTests()
-        {
-            _items = new List<Item>();
-            _target = new Program(_items);
-        }
-
         [Fact]
         public void SellIn_is_lowered_by_one_by_default()
         {
             var item = new Item { SellIn = 5, Quality = 10};
 
-            _items.Add(item);
+            Items.Add(item);
 
-            _target.UpdateQuality();
+            Target.UpdateQuality();
 
             item.SellIn.Should().Be(4);
         }
@@ -34,9 +23,9 @@ namespace GildedRose.Tests
         {
             var item = new Item { SellIn = 1, Quality = 10 };
 
-            _items.Add(item);
+            Items.Add(item);
 
-            _target.UpdateQuality();
+            Target.UpdateQuality();
 
             item.Quality.Should().Be(9);
         }
@@ -46,9 +35,9 @@ namespace GildedRose.Tests
         {
             var item = new Item { SellIn = 0, Quality = 10 };
 
-            _items.Add(item);
+            Items.Add(item);
 
-            _target.UpdateQuality();
+            Target.UpdateQuality();
 
             item.Quality.Should().Be(8);
         }
@@ -58,9 +47,9 @@ namespace GildedRose.Tests
         {
             var item = new Item { SellIn = 1, Quality = 0 };
 
-            _items.Add(item);
+            Items.Add(item);
 
-            _target.UpdateQuality();
+            Target.UpdateQuality();
 
             item.Quality.Should().Be(0);
         }
