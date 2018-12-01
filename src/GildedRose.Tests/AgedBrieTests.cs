@@ -6,28 +6,27 @@ namespace GildedRose.Tests
 {
     public class AgedBrieTests : ProgramTests
     {
+        public AgedBrieTests()
+        {
+            Item = new Item { Name = "Aged Brie", SellIn = 1, Quality = 10 };
+        }
+
         [Fact]
         public void Quality_is_increased_by_one_before_sellin_has_passed()
         {
-            var item = new Item { Name = "Aged Brie", SellIn = 1, Quality = 10 };
+            UpdateQualityWithItem();
 
-            Items.Add(item);
-
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(11);
+            Item.Quality.Should().Be(11);
         }
 
         [Fact]
         public void Quality_cannot_increase_beyond_fifty()
         {
-            var item = new Item { Name = "Aged Brie", SellIn = 1, Quality = 50 };
+            Item.Quality = 50;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(50);
+            Item.Quality.Should().Be(50);
         }
     }
 }

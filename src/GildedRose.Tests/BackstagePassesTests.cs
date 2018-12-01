@@ -6,112 +6,97 @@ namespace GildedRose.Tests
 {
     public class BackstagePassesTests : ProgramTests
     {
+        public BackstagePassesTests()
+        {
+           Item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = 10 };
+        }
+
         [Fact]
         public void Quality_is_increased_by_one_while_sellin_date_is_more_then_ten_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = 10 };
+            UpdateQualityWithItem();
 
-            Items.Add(item);
-
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(11);
+            Item.Quality.Should().Be(11);
         }
 
         [Fact]
         public void Quality_is_increased_by_two_when_sellin_date_is_ten_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 10 };
+            Item.SellIn = 10;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(12);
+            Item.Quality.Should().Be(12);
         }
 
         [Fact]
         public void Quality_is_increased_by_two_when_sellin_date_less_than_ten_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 9, Quality = 10 };
+            Item.SellIn = 9;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(12);
+            Item.Quality.Should().Be(12);
         }
 
         [Fact]
         public void Quality_is_increased_by_two_when_sellin_date_more_than_five_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 6, Quality = 10 };
+            Item.SellIn =  6;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(12);
+            Item.Quality.Should().Be(12);
         }
 
         [Fact]
         public void Quality_is_increased_by_three_when_sellin_date_is_five_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 10 };
+            Item.SellIn = 5;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(13);
+            Item.Quality.Should().Be(13);
         }
 
         [Fact]
         public void Quality_is_increased_by_three_when_sellin_date_less_than_five_days()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 4, Quality = 10 };
+            Item.SellIn = 4;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(13);
+            Item.Quality.Should().Be(13);
         }
         
         [Fact]
         public void Quality_is_increased_by_three_when_sellin_date_at_least_one_day()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 1, Quality = 10 };
+            Item.SellIn = 1;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(13);
+            Item.Quality.Should().Be(13);
         }
 
         [Fact]
         public void Quality_drops_to_zero_after_the_concert()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 10 };
+            Item.SellIn = 0;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(0);
+            Item.Quality.Should().Be(0);
         }
 
         [Fact]
         public void Quality_cannot_increase_beyond_fifty()
         {
-            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 1, Quality = 50 };
+            Item.Quality = 50;
 
-            Items.Add(item);
+            UpdateQualityWithItem();
 
-            Target.UpdateQuality();
-
-            item.Quality.Should().Be(50);
+            Item.Quality.Should().Be(50);
         }
     }
 }
