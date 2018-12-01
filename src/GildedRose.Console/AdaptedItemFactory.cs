@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRose.Console
 {
@@ -8,9 +9,14 @@ namespace GildedRose.Console
         {
             foreach (var item in items)
             {
+                if (item.Name.Contains("conjured", StringComparison.OrdinalIgnoreCase))
+                {
+                    yield return new ConjuredItemAdapter(item);
+                    continue;
+                }
+
                 switch (item.Name)
                 {
-
                     case "Aged Brie":
                         yield return new AgedBrieAdapter(item);
                         continue;
